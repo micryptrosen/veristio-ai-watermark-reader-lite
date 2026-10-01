@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Veristio AI Watermark Reader Lite</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Entry 02 - AI Watermark Reader Lite</p>
+          <h1>Read transparency signals with appropriate caution</h1>
+        </div>
+        <div class="status-pill" id="status-output" aria-live="polite">Local only</div>
+      </header>
+
+      <section class="reader-grid" aria-label="Watermark reader workspace">
+        <section class="panel input-panel">
+          <div class="section-heading">
+            <h2>Inspect text</h2>
+            <p>Paste content and optional source notes. The tool reports review signals, not conclusions.</p>
+          </div>
+
+          <label>
+            <span>Text for inspection</span>
+            <textarea id="text-input" rows="10" placeholder="Paste text here. Avoid private or sensitive content."></textarea>
+          </label>
+
+          <label>
+            <span>Source or context notes</span>
+            <textarea id="source-notes" rows="4" placeholder="Optional: paste visible disclosure, metadata notes, provenance notes, platform context, or review concerns."></textarea>
+          </label>
+
+          <div class="button-row">
+            <button type="button" class="primary" id="analyze-button">Analyze text</button>
+            <button type="button" id="sample-button">Load sample</button>
+            <button type="button" id="copy-button">Copy report</button>
+            <button type="button" id="reset-button">Reset</button>
+          </div>
+
+          <aside class="privacy-note">
+            Runs locally in this browser. No network calls, uploads, accounts, or storage.
+          </aside>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="section-heading">
+            <h2>Lite review report</h2>
+            <p>Use this as a human review aid, not as an authorship decision.</p>
+          </div>
+
+          <div class="score-card">
+            <span>Review signal level</span>
+            <strong id="signal-level">Not reviewed</strong>
+          </div>
+
+          <div class="report-block">
+            <h3>Signals and review notes</h3>
+            <ul id="signal-list">
+              <li>Paste text or load the sample, then choose Analyze text.</li>
+            </ul>
+          </div>
+
+          <div class="report-block">
+            <h3>Recommended next human review steps</h3>
+            <ul id="steps-list">
+              <li>Review visible disclosures and source context before drawing conclusions.</li>
+            </ul>
+          </div>
+
+          <div class="report-block">
+            <h3>Copy-friendly report</h3>
+            <pre id="report-output">No report yet.</pre>
+          </div>
+        </section>
+      </section>
+
+      <section class="education-grid" aria-label="Educational reference panels">
+        <article class="panel education-card">
+          <h2>What watermarking is</h2>
+          <p>Watermarking is a family of techniques intended to add or preserve signals about content origin, generation, editing, or provenance. Signals may be visible, metadata-based, cryptographic, platform-specific, or absent from plain pasted text.</p>
+        </article>
+
+        <article class="panel education-card">
+          <h2>What this Lite tool can check</h2>
+          <p>It can highlight visible disclosures, provenance-style notes users paste, metadata hints users report, repeated phrasing patterns, and review questions for a human reviewer.</p>
+        </article>
+
+        <article class="panel education-card">
+          <h2>What this Lite tool cannot prove</h2>
+          <p>It cannot verify hidden markers, inspect original files, validate C2PA manifests, identify authorship, or replace a trusted provenance system.</p>
+        </article>
+
+        <article class="panel education-card">
+          <h2>Why missing signals are limited</h2>
+          <p>Absence of a visible signal is not proof of human authorship. A signal may have been removed, never added, or lost during copy/paste, export, or platform processing.</p>
+        </article>
+
+        <article class="panel education-card">
+          <h2>Why suspicious patterns are limited</h2>
+          <p>Formulaic language or repeated phrasing can appear in human writing, templates, edited drafts, and generated text. Treat patterns as review notes, not authorship decisions.</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
