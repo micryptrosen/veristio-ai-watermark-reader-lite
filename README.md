@@ -1,6 +1,16 @@
 # AI Watermark Reader Lite
 
-A dependency-free local browser prototype for Build With AI Hackathon #2.
+A dependency-free local Veristio prototype, preserved beyond its original hackathon effort.
+
+## Accepted Usefulness Update - 2026-10-01
+
+Where each signal came from separates pasted-text findings from reviewer-note hints in both screen and copied report. Repeated-phrasing notes apply only to pasted text; matches and reported hints are not verified provenance.
+
+The product owner accepted this bounded repair in the governed product home. It is now prepared in this local publication mirror; this preparation does not claim the new commit has been pushed. Owner acceptance is not production or customer validation.
+
+Educational transparency review only: no AI-authorship conclusion, hidden-watermark verification or removal. Neither absent signals nor suspicious wording establishes authorship. Reference-source runtime and private implementation remain excluded.
+
+The demo below records the older prototype, before this repair. No video was rerecorded or uploaded for this update, and playback was not freshly checked. Devpost submission was abandoned due to owner-assessed qualification risk; no submission occurred.
 
 ## Features
 

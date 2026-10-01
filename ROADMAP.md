@@ -1,23 +1,18 @@
 # Roadmap
 
-## Current Phase
+## Current Product Update - 2026-10-01
 
-First local static prototype implemented.
+Preserved non-hackathon Veristio prototype. The owner accepted this bounded repair in the governed product home; it is now prepared locally in the publication mirror:
 
-## Next Lawful Build Operation
+Where each signal came from separates pasted-text findings from reviewer-note hints in both screen and copied report. Repeated-phrasing notes apply only to pasted text; matches and reported hints are not verified provenance.
 
-Run local QA, refine limitation language, and prepare for a later public-readiness audit.
+This local commit is not a claim of public push, new demo recording, customer validation or production readiness. Existing demo and MIT license remain preserved. Devpost submission route is abandoned/held/not performed due to owner-assessed qualification risk.
 
-## Next Improvements
+## Next Actions
 
-- Add more sample scenarios for visible disclosure, missing provenance, and mixed signals.
-- Add a clearer C2PA/content-credentials explainer panel after source review.
-- Add local-only report download if owner approves download behavior.
-- Improve keyboard and screen-reader QA after manual browser testing.
-- Add public-readiness checklist before any remote or Devpost action.
+Review the local mirror diff and its verification evidence before any separately approved push. Subsequent product changes require a new bounded scope and owner approval; no speculative features are implemented or authorized here.
 
-## Later Gates
+## Boundaries
 
-- Run local checks.
-- Recheck Devpost rules before external action.
-- Request owner approval before any push, publication, demo upload, or submission.
+Educational transparency review only: no AI-authorship conclusion, hidden-watermark verification or removal. Neither absent signals nor suspicious wording establishes authorship. Reference-source runtime and private implementation remain excluded.
+No backend, persistence, accounts, analytics, external AI integration, automatic publication or deployment is introduced. Keep private governance/evidence and source-reference content out of this mirror.

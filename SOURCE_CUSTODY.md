@@ -1,5 +1,10 @@
 # Source Custody
 
+## Public Mirror Update Boundary - 2026-10-01
+
+Educational transparency review only: no AI-authorship conclusion, hidden-watermark verification or removal. Neither absent signals nor suspicious wording establishes authorship. Reference-source runtime and private implementation remain excluded.
+This publication mirror contains independently scoped app files and public documentation, not private product memory, source-reference content or source-repository history. The MIT exclusions and existing custody rules below remain in force.
+
 ## Lane Verdict
 
 Entry 02 uses the Veristio Web watermark repo as source reference only.

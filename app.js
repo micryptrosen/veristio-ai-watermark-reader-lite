@@ -51,7 +51,6 @@ function getPatternNotes(text) {
 function inspectText() {
   const rawText = textInput.value.trim();
   const rawNotes = sourceNotes.value.trim();
-  const combined = normalize(`${rawText}\n${rawNotes}`);
 
   if (!rawText && !rawNotes) {
     const emptySignals = ["No text or notes supplied yet. Paste content or load the sample to begin a Lite review."];
@@ -64,29 +63,33 @@ function inspectText() {
     return;
   }
 
-  const disclosureHits = hasAny(combined, disclosureTerms);
-  const provenanceHits = hasAny(combined, provenanceTerms);
+  const textDisclosureHits = hasAny(normalize(rawText), disclosureTerms);
+  const notesDisclosureHits = hasAny(normalize(rawNotes), disclosureTerms);
+  const textProvenanceHits = hasAny(normalize(rawText), provenanceTerms);
+  const notesProvenanceHits = hasAny(normalize(rawNotes), provenanceTerms);
   const patternNotes = getPatternNotes(rawText);
-  const signals = [];
-
-  if (disclosureHits.length) {
-    signals.push(`Visible disclosure signal: found wording such as "${disclosureHits.slice(0, 2).join(", ")}".`);
-  } else {
-    signals.push("Visible disclosure signal: none found in the pasted text or notes.");
-  }
-
-  if (provenanceHits.length) {
-    signals.push(`Metadata/provenance hint: notes mention ${provenanceHits.slice(0, 3).join(", ")}.`);
-  } else {
-    signals.push("Metadata/provenance hint: no metadata or provenance notes supplied.");
-  }
+  const signals = [
+    textDisclosureHits.length
+      ? `Pasted text - disclosure wording signal: mentions "${textDisclosureHits.slice(0, 2).join(", ")}".`
+      : "Pasted text - disclosure wording signal: none found.",
+    textProvenanceHits.length
+      ? `Pasted text - metadata/provenance hint: mentions ${textProvenanceHits.slice(0, 3).join(", ")}.`
+      : "Pasted text - metadata/provenance hint: none found.",
+    notesDisclosureHits.length
+      ? `Reviewer notes - reported disclosure hint: mentions "${notesDisclosureHits.slice(0, 2).join(", ")}"; not a disclosure found in pasted text.`
+      : "Reviewer notes - reported disclosure hint: none found.",
+    notesProvenanceHits.length
+      ? `Reviewer notes - reported metadata/provenance hint: mentions ${notesProvenanceHits.slice(0, 3).join(", ")}.`
+      : "Reviewer notes - reported metadata/provenance hint: none found."
+  ];
 
   if (patternNotes.length) {
-    signals.push(...patternNotes);
+    signals.push(...patternNotes.map((note) => `Pasted text - ${note}`));
   } else {
-    signals.push("Generated-text caution note: no repeated phrasing pattern crossed the Lite review threshold.");
+    signals.push("Pasted text - caution note: no repeated phrasing pattern crossed the Lite review threshold.");
   }
 
+  signals.push("Limitation: wording matches and reviewer notes are not verified provenance; context may negate a claim.");
   signals.push("Limitation: missing visible signals do not establish human authorship.");
   signals.push("Limitation: suspicious patterns do not establish AI authorship.");
 
@@ -97,7 +100,8 @@ function inspectText() {
     "Escalate to a qualified provenance workflow for high-stakes review."
   ];
 
-  const signalCount = disclosureHits.length + provenanceHits.length + patternNotes.length;
+  const signalCount = new Set([...textDisclosureHits, ...notesDisclosureHits]).size
+    + new Set([...textProvenanceHits, ...notesProvenanceHits]).size + patternNotes.length;
   signalLevel.textContent = signalCount >= 3 ? "Several review signals" : signalCount >= 1 ? "Some review signals" : "Few review signals";
 
   renderList(signalList, signals);
@@ -106,7 +110,7 @@ function inspectText() {
   reportOutput.textContent = [
     "AI Watermark Reader Lite report",
     "",
-    "Signals and review notes:",
+    "Where each signal came from:",
     ...signals.map((item) => `- ${item}`),
     "",
     "Recommended next human review steps:",

@@ -1,27 +1,21 @@
-# Demo Script
+# Demo Script - AI Watermark Reader Lite
 
-Target length: under three minutes.
+Suggested future walkthrough: under three minutes. Existing recorded demo: https://youtu.be/g4BtTbJOI8Y.
+The recorded video predates this usefulness repair; this script is not evidence of a new recording or upload.
 
-## 0:00 - 0:20 Open
+## 0:00-0:25 - Open
 
-Show `index.html` opened locally. State that AI Watermark Reader Lite helps reviewers understand transparency signals and limitations.
+Run the static app over localhost. Introduce it as a preserved Veristio prototype; no AI service, account or input storage is used.
 
-## 0:20 - 0:45 Load Sample
+## 0:25-1:55 - Accepted Repair
 
-Click `Load sample`. Point out the pasted text and source/context notes.
+Analyze ordinary pasted text with disclosure wording in reviewer notes only. Point out reviewer-note hints and no pasted-text disclosure. Move disclosure wording into pasted text and compare the source labels.
 
-## 0:45 - 1:25 Analyze Signals
+## 1:55-2:35 - Copy and Reset
 
-Click `Analyze text`. Show visible disclosure signals, metadata/provenance hints, and generated-text caution notes.
+Show the copy control and clipboard-denied/unavailable selection fallback. Confirm the copied text is the intended output, then reset the workspace.
 
-## 1:25 - 1:55 Explain Limits
+## 2:35-2:55 - Limits
 
-Show the educational panels. Emphasize that missing signals are not proof of human authorship and suspicious patterns are not proof of AI authorship.
-
-## 1:55 - 2:25 Human Review Steps
-
-Show recommended next human review steps, including asking for original files, platform records, or trusted provenance workflows for high-stakes review.
-
-## 2:25 - 2:55 Copy Report And Boundaries
-
-Click `Copy report` if browser clipboard support is available. Close by noting that the prototype runs locally, does not call an AI service, and uses the Veristio Web watermark repo only as a source reference.
+Educational transparency review only: no AI-authorship conclusion, hidden-watermark verification or removal. Neither absent signals nor suspicious wording establishes authorship. Reference-source runtime and private implementation remain excluded.
+No new publication or Devpost submission is performed by following this local walkthrough.
