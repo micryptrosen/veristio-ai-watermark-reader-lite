@@ -1,5 +1,11 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Product Value Walkthrough - 2026-10-03
+
+Under three minutes: compare pasted-text-only, notes-only and both-input reports across four groups. Copy the report, edit notes to clear stale output, reanalyze and reset. Explain why signals/hints do not establish authorship.
+
+This is a future local walkthrough, not evidence of a new recording. Existing public demo predates these additions; no new playback or upload is claimed. Earlier walkthroughs below are historical. No Devpost submission.
+
 ## Current Maintenance Walkthrough - 2026-10-03
 
 Future walkthrough, under three minutes: Load sample and analyze text/notes. Edit either input and try Copy before reanalysis; old findings must be cleared. Analyze again, inspect source attribution, copy or select the current report, and reset.

@@ -5,6 +5,8 @@ const sampleNotes = `Visible disclosure appears in the first sentence. Reviewer 
 const textInput = document.querySelector("#text-input");
 const sourceNotes = document.querySelector("#source-notes");
 const signalList = document.querySelector("#signal-list");
+const reviewerList = document.querySelector("#reviewer-list");
+const limitationsList = document.querySelector("#limitations-list");
 const stepsList = document.querySelector("#steps-list");
 const reportOutput = document.querySelector("#report-output");
 const signalLevel = document.querySelector("#signal-level");
@@ -24,6 +26,8 @@ function invalidateReport() {
   reportOutput.textContent = "Inputs changed. Choose Analyze text to generate a current report.";
   signalLevel.textContent = "Not reviewed";
   renderList(signalList, ["Inputs changed; previous signals cleared. Analyze text again."]);
+  renderList(reviewerList, ["Inputs changed; previous reviewer hints cleared."]);
+  renderList(limitationsList, ["Regenerate to review current limitations."]);
   renderList(stepsList, ["Analyze the current text and notes before reviewing next steps."]);
   statusOutput.textContent = "Inputs changed; analyze again";
 }
@@ -71,6 +75,8 @@ function inspectText() {
     const emptySignals = ["No text or notes supplied yet. Paste content or load the sample to begin a Lite review."];
     const emptySteps = ["Collect source context, visible disclosures, and original-file information before review."];
     renderList(signalList, emptySignals);
+    renderList(reviewerList, ["No reviewer notes supplied."]);
+    renderList(limitationsList, ["No content reviewed; no authorship conclusion."]);
     renderList(stepsList, emptySteps);
     signalLevel.textContent = "No input";
     reportOutput.textContent = "No report yet.";
@@ -83,13 +89,15 @@ function inspectText() {
   const textProvenanceHits = hasAny(normalize(rawText), provenanceTerms);
   const notesProvenanceHits = hasAny(normalize(rawNotes), provenanceTerms);
   const patternNotes = getPatternNotes(rawText);
-  const signals = [
+  const textSignals = [
     textDisclosureHits.length
       ? `Pasted text - disclosure wording signal: mentions "${textDisclosureHits.slice(0, 2).join(", ")}".`
       : "Pasted text - disclosure wording signal: none found.",
     textProvenanceHits.length
       ? `Pasted text - metadata/provenance hint: mentions ${textProvenanceHits.slice(0, 3).join(", ")}.`
-      : "Pasted text - metadata/provenance hint: none found.",
+      : "Pasted text - metadata/provenance hint: none found."
+  ];
+  const reviewerSignals = [
     notesDisclosureHits.length
       ? `Reviewer notes - reported disclosure hint: mentions "${notesDisclosureHits.slice(0, 2).join(", ")}"; not a disclosure found in pasted text.`
       : "Reviewer notes - reported disclosure hint: none found.",
@@ -99,14 +107,20 @@ function inspectText() {
   ];
 
   if (patternNotes.length) {
-    signals.push(...patternNotes.map((note) => `Pasted text - ${note}`));
+    textSignals.push(...patternNotes.map((note) => `Pasted text - ${note}`));
   } else {
-    signals.push("Pasted text - caution note: no repeated phrasing pattern crossed the Lite review threshold.");
+    textSignals.push("Pasted text - caution note: no repeated phrasing pattern crossed the Lite review threshold.");
   }
 
-  signals.push("Limitation: wording matches and reviewer notes are not verified provenance; context may negate a claim.");
-  signals.push("Limitation: missing visible signals do not establish human authorship.");
-  signals.push("Limitation: suspicious patterns do not establish AI authorship.");
+  const limitations = [
+    "Limitation: wording matches and reviewer notes are not verified provenance; context may negate a claim.",
+    "Limitation: missing visible signals do not establish human authorship.",
+    "Limitation: suspicious patterns do not establish AI authorship.",
+    "This Lite tool reports signals, hints, review notes, and limitations.",
+    "It does not verify hidden markers, inspect original files, validate manifests, or decide authorship.",
+    "Absence of a signal is not proof of human authorship.",
+    "A suspicious pattern is not proof of AI authorship."
+  ];
 
   const steps = [
     "Ask for the original file or platform record when provenance matters.",
@@ -119,23 +133,26 @@ function inspectText() {
     + new Set([...textProvenanceHits, ...notesProvenanceHits]).size + patternNotes.length;
   signalLevel.textContent = signalCount >= 3 ? "Several review signals" : signalCount >= 1 ? "Some review signals" : "Few review signals";
 
-  renderList(signalList, signals);
+  renderList(signalList, textSignals);
+  renderList(reviewerList, reviewerSignals);
+  renderList(limitationsList, limitations);
   renderList(stepsList, steps);
 
   reportOutput.textContent = [
     "AI Watermark Reader Lite report",
     "",
     "Where each signal came from:",
-    ...signals.map((item) => `- ${item}`),
+    "Visible text signals:",
+    ...textSignals.map((item) => `- ${item}`),
+    "",
+    "Reviewer notes:",
+    ...reviewerSignals.map((item) => `- ${item}`),
+    "",
+    "Limitations:",
+    ...limitations.map((item) => `- ${item}`),
     "",
     "Recommended next human review steps:",
-    ...steps.map((item) => `- ${item}`),
-    "",
-    "Claims and limitations:",
-    "- This Lite tool reports signals, hints, review notes, and limitations.",
-    "- It does not verify hidden markers, inspect original files, validate manifests, or decide authorship.",
-    "- Absence of a signal is not proof of human authorship.",
-    "- A suspicious pattern is not proof of AI authorship."
+    ...steps.map((item) => `- ${item}`)
   ].join("\n");
 
   statusOutput.textContent = "Report ready";
@@ -201,6 +218,8 @@ function resetTool() {
   sourceNotes.value = "";
   signalLevel.textContent = "Not reviewed";
   renderList(signalList, ["Paste text or load the sample, then choose Analyze text."]);
+  renderList(reviewerList, ["No reviewer notes reviewed yet."]);
+  renderList(limitationsList, ["Review signals are not authorship conclusions."]);
   renderList(stepsList, ["Review visible disclosures and source context before drawing conclusions."]);
   reportOutput.textContent = "No report yet.";
   statusOutput.textContent = "Local only";

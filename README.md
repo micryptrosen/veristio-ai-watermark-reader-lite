@@ -1,5 +1,12 @@
 # AI Watermark Reader Lite
 
+## Current Product Value - 2026-10-03
+
+Screen and copied report separate Visible text signals, Reviewer notes, Limitations and Recommended next human review steps. Reviewer hints are not findings in pasted text; repeated-phrasing notes apply only to pasted text. Edit either input to clear the stale report/groups, then Analyze text again before copying. No authorship verdict or hidden-watermark verification.
+
+This bounded addition is implemented and owner-accepted in the governed product home. This independent-history mirror carries only public-safe app/docs. Owner acceptance is not customer or production validation. Earlier dated preparation/update statements below are historical; they do not certify current publication status.
+Static local operation, no network dependency or input storage, and MIT license preserved. Existing demo predates these additions; no new recording/playback claim. The hackathon submission route remains abandoned; this is non-hackathon product continuation.
+
 ## Accepted Maintenance Prepared Locally - 2026-10-03
 
 Editing pasted text or reviewer notes clears the previous report/signals and requires Analyze text again before copy. Source attribution remains separate. Pending clipboard completion cannot restore obsolete status or fallback selection; an already initiated OS write cannot be revoked.
