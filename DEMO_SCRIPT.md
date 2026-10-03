@@ -1,5 +1,11 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Current Maintenance Walkthrough - 2026-10-03
+
+Future walkthrough, under three minutes: Load sample and analyze text/notes. Edit either input and try Copy before reanalysis; old findings must be cleared. Analyze again, inspect source attribution, copy or select the current report, and reset.
+
+This replaces the older walkthrough emphasis below, not the recorded video's history. Existing demo predates this maintenance slice; no new video, upload or playback check is claimed. Describe narrow observable behavior, not customer/production readiness or guaranteed results.
+
 Suggested future walkthrough: under three minutes. Existing recorded demo: https://youtu.be/g4BtTbJOI8Y.
 The recorded video predates this usefulness repair; this script is not evidence of a new recording or upload.
 
