@@ -1,5 +1,12 @@
 # Roadmap
 
+## Actionable Review Aids - 2026-10-04
+
+Source-aware human-review questions distinguish pasted-text findings from reviewer-reported hints. Matching, counts, tiers, literal excerpts, cautious limitations and current report copy/export guards remain unchanged.
+[Open the public app](https://micryptrosen.github.io/veristio-ai-watermark-reader-lite/).
+Owner-accepted bounded update. Static local-only architecture and MIT preserved; future changes require bounded review.
+Existing demo video predates this addition and has not been re-recorded. Physical-phone review remains deferred. Earlier dated preparation/status notes below are historical checkpoints; publication evidence is maintained separately.
+
 ## Sample Replacement Protection - 2026-10-04
 
 Load sample asks before replacing work changed since the initial state, last successful sample load or Reset. Cancel keeps current inputs and generated output; confirm loads the sample. Unchanged sample values load directly. Reset still clears work immediately; no autosave is added.

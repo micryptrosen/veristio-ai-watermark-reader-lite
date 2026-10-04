@@ -167,12 +167,21 @@ function inspectText() {
     "A suspicious pattern is not proof of AI authorship."
   ];
 
-  const steps = [
+  /* Source-aware review aids: advisory only; existing signals and counts are unchanged. */
+  const steps = [];
+  if (textDisclosureHits.length) steps.push("Pasted text: what does the disclosure statement say in its full surrounding context?");
+  if (textProvenanceHits.length) steps.push("Pasted text: can the original file or platform record support the provenance terms mentioned? This app does not validate them.");
+  if (notesDisclosureHits.length || notesProvenanceHits.length) steps.push("Reviewer notes: can the reviewer supply the underlying content or source evidence for these reported hints? Notes are not findings in pasted text.");
+  if (!rawText) steps.push("Reviewer notes only: can you obtain the actual content before reviewing its visible signals?");
+  if (patternNotes.length) steps.push("Pasted text: how does the repeated phrasing fit its context? Repetition is not an authorship conclusion.");
+  if (!textDisclosureHits.length && !textProvenanceHits.length && !notesDisclosureHits.length && !notesProvenanceHits.length) steps.push("No disclosure or provenance terms matched: what source context or disclosure information is available? Absence establishes no authorship.");
+  /* End source-aware review aids. */
+  steps.push(
     "Ask for the original file or platform record when provenance matters.",
     "Look for visible disclosures, content credentials, edit history, or publisher policy notes.",
     "Compare claims against source context before making a decision.",
     "Escalate to a qualified provenance workflow for high-stakes review."
-  ];
+  );
 
   const signalCount = new Set([...textDisclosureHits, ...notesDisclosureHits]).size
     + new Set([...textProvenanceHits, ...notesProvenanceHits]).size + patternNotes.length;
