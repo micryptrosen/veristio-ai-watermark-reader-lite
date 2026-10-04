@@ -17,12 +17,14 @@ const copyButton = document.querySelector("#copy-button");
 const exportButton = document.querySelector("#export-button");
 const resetButton = document.querySelector("#reset-button");
 let reportInputs = null;
+let copyOperation = 0;
 
 function reportIsCurrent() {
   return reportInputs && reportInputs.text === textInput.value && reportInputs.notes === sourceNotes.value;
 }
 
 function invalidateReport() {
+  copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
   reportOutput.textContent = "Inputs changed. Choose Analyze text to generate a current report.";
@@ -99,6 +101,7 @@ function getPatternNotes(text) {
 }
 
 function inspectText() {
+  copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
   const rawText = textInput.value.trim();
@@ -224,6 +227,7 @@ function selectReportText() {
 }
 
 async function copyReport() {
+  const operation = ++copyOperation;
   const report = reportOutput.textContent.trim();
 
   if (!report || report === "No report yet.") {
@@ -246,16 +250,17 @@ async function copyReport() {
 
   try {
     await navigator.clipboard.writeText(report);
-    if (reportInputs !== copiedInputs || !reportIsCurrent()) return;
+    if (operation !== copyOperation || reportInputs !== copiedInputs || !reportIsCurrent()) return;
     statusOutput.textContent = "Copied";
   } catch {
-    if (reportInputs !== copiedInputs || !reportIsCurrent()) return;
+    if (operation !== copyOperation || reportInputs !== copiedInputs || !reportIsCurrent()) return;
     statusOutput.textContent = "Copy blocked; text selected";
     selectReportText();
   }
 }
 
 function exportReport() {
+  copyOperation += 1;
   if (!reportIsCurrent() || !reportOutput.textContent.trim() || reportOutput.textContent === "No report yet.") {
     if (reportInputs) invalidateReport();
     exportButton.disabled = true;
@@ -285,6 +290,7 @@ function exportReport() {
 }
 
 function resetTool() {
+  copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
   textInput.value = "";

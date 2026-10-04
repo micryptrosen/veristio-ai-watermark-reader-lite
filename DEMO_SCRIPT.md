@@ -1,5 +1,12 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Current Public-safe Snapshot - 2026-10-04
+
+Generate a report, try repeated Copy, then Copy followed by Export report (.txt). Edit text or notes, reanalyze, export and reset. Explain that signals are not verified provenance or authorship.
+This is a current walkthrough, not a claim that the existing public video was re-recorded.
+Earlier dated local-preparation/not-yet-pushed statements below describe historical checkpoints, not the current snapshot or today's publication result. Owner acceptance is not independent customer validation.
+Static local-only operation and MIT license preserved. Existing demo URLs and historical Skill Pack documentation are unchanged; physical-phone review remains deferred.
+
 ## Post-Pages Accepted Product Updates - 2026-10-04
 
 Analyze text or the sample, Export report (.txt), open the file and compare grouped signals, reviewer notes, limits and next steps. Edit text/notes: export must wait for reanalysis. Regenerate, export, copy and reset.

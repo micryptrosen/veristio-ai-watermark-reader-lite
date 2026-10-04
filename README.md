@@ -1,5 +1,11 @@
 # AI Watermark Reader Lite
 
+## Current Public-safe Snapshot - 2026-10-04
+
+Repeated copy attempts use only the latest operation's status/fallback completion. Export report (.txt) supersedes pending copy completion. Input edits, reanalysis and reset keep existing current-report safeguards. Report grouping, attributed literal excerpts, matching and limitations are unchanged.
+Earlier dated local-preparation/not-yet-pushed statements below describe historical checkpoints, not the current snapshot or today's publication result. Owner acceptance is not independent customer validation.
+Static local-only operation and MIT license preserved. Existing demo URLs and historical Skill Pack documentation are unchanged; physical-phone review remains deferred.
+
 ## Post-Pages Accepted Product Updates - 2026-10-04
 
 Export report (.txt) downloads the already generated current grouped report as ai-watermark-reader-lite-report.txt. Blank/reset/edited text or notes cannot export until Analyze text runs again. Attribution, literal excerpts, cautious limitations and copy behavior are unchanged; a download request is not a verified disk save.
