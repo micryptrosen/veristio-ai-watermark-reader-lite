@@ -1,5 +1,13 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Accepted Maintenance Prepared Locally - 2026-10-04
+
+Compare pasted-text-only and reviewer-notes-only input containing several disclosure/provenance terms, then both. Inspect attributed literal excerpts on screen and in the copied report; edit input, regenerate and reset. Explain that matching does not interpret negation or establish authorship.
+
+This accepted product-home repair is prepared in this local public-safe mirror, not yet pushed. Older dated preparation and publication notes remain historical. Static local-only operation and MIT license are preserved. Owner acceptance is not customer or production validation.
+Existing public demo predates this repair; this update does not claim a new recording or playback check. Devpost submission remains abandoned/held/not performed.
+
+
 ## Product Value Walkthrough - 2026-10-03
 
 Under three minutes: compare pasted-text-only, notes-only and both-input reports across four groups. Copy the report, edit notes to clear stale output, reanalyze and reset. Explain why signals/hints do not establish authorship.

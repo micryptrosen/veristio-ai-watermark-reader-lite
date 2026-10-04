@@ -48,6 +48,36 @@ function hasAny(text, terms) {
   return terms.filter((term) => text.includes(term));
 }
 
+function literalContext(value, term) {
+  const matchOffset = value.toLowerCase().indexOf(term);
+  const characters = Array.from(value);
+  let foldedOffset = 0;
+  let matchStart = 0;
+  // Map lowercase offsets back to whole source characters, including expanded case mappings.
+  while (matchStart < characters.length && foldedOffset + characters[matchStart].toLowerCase().length <= matchOffset) {
+    foldedOffset += characters[matchStart].toLowerCase().length;
+    matchStart += 1;
+  }
+  let matchEnd = matchStart;
+  while (matchEnd < characters.length && foldedOffset < matchOffset + term.length) {
+    foldedOffset += characters[matchEnd].toLowerCase().length;
+    matchEnd += 1;
+  }
+  let start = Math.max(0, matchStart - 20);
+  let end = Math.min(characters.length, matchEnd + 20);
+  const excerpt = () => (start > 0 ? "..." : "") + characters.slice(start, end).join("") + (end < characters.length ? "..." : "");
+  while (excerpt().length > 80) {
+    if (end > matchEnd) end -= 1;
+    else if (start < matchStart) start += 1;
+    else break;
+  }
+  return excerpt();
+}
+
+function matchContexts(source, category, value, hits) {
+  return hits.map((term) => `${source} - ${category} literal match "${term}" | context: ${literalContext(value, term)}`);
+}
+
 function renderList(element, items) {
   element.innerHTML = "";
   items.forEach((item) => {
@@ -91,20 +121,29 @@ function inspectText() {
   const patternNotes = getPatternNotes(rawText);
   const textSignals = [
     textDisclosureHits.length
-      ? `Pasted text - disclosure wording signal: mentions "${textDisclosureHits.slice(0, 2).join(", ")}".`
+      ? `Pasted text - disclosure wording signal: mentions "${textDisclosureHits.join(", ")}".`
       : "Pasted text - disclosure wording signal: none found.",
     textProvenanceHits.length
-      ? `Pasted text - metadata/provenance hint: mentions ${textProvenanceHits.slice(0, 3).join(", ")}.`
+      ? `Pasted text - metadata/provenance hint: mentions ${textProvenanceHits.join(", ")}.`
       : "Pasted text - metadata/provenance hint: none found."
   ];
   const reviewerSignals = [
     notesDisclosureHits.length
-      ? `Reviewer notes - reported disclosure hint: mentions "${notesDisclosureHits.slice(0, 2).join(", ")}"; not a disclosure found in pasted text.`
+      ? `Reviewer notes - reported disclosure hint: mentions "${notesDisclosureHits.join(", ")}"; not a disclosure found in pasted text.`
       : "Reviewer notes - reported disclosure hint: none found.",
     notesProvenanceHits.length
-      ? `Reviewer notes - reported metadata/provenance hint: mentions ${notesProvenanceHits.slice(0, 3).join(", ")}.`
+      ? `Reviewer notes - reported metadata/provenance hint: mentions ${notesProvenanceHits.join(", ")}.`
       : "Reviewer notes - reported metadata/provenance hint: none found."
   ];
+
+  textSignals.push(
+    ...matchContexts("Pasted text", "disclosure", rawText, textDisclosureHits),
+    ...matchContexts("Pasted text", "metadata/provenance", rawText, textProvenanceHits)
+  );
+  reviewerSignals.push(
+    ...matchContexts("Reviewer notes", "disclosure", rawNotes, notesDisclosureHits),
+    ...matchContexts("Reviewer notes", "metadata/provenance", rawNotes, notesProvenanceHits)
+  );
 
   if (patternNotes.length) {
     textSignals.push(...patternNotes.map((note) => `Pasted text - ${note}`));
@@ -113,7 +152,7 @@ function inspectText() {
   }
 
   const limitations = [
-    "Limitation: wording matches and reviewer notes are not verified provenance; context may negate a claim.",
+    "Limitation: wording matches and reviewer notes are not verified provenance; context may negate a claim. Literal substring matches include negated and embedded terms. Excerpts do not verify intent, a signature, provenance or authorship; overlapping terms are not independent corroboration.",
     "Limitation: missing visible signals do not establish human authorship.",
     "Limitation: suspicious patterns do not establish AI authorship.",
     "This Lite tool reports signals, hints, review notes, and limitations.",

@@ -227,6 +227,8 @@ button.primary:hover {
 
 .report-block li {
   margin: 7px 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 #report-output {
