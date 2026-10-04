@@ -1,5 +1,11 @@
 # Roadmap
 
+## Post-Pages Accepted Product Updates - 2026-10-04
+
+Export report (.txt) downloads the already generated current grouped report as ai-watermark-reader-lite-report.txt. Blank/reset/edited text or notes cannot export until Analyze text runs again. Attribution, literal excerpts, cautious limitations and copy behavior are unchanged; a download request is not a verified disk save.
+
+Next: collect concrete use feedback and separately scope improvements. No automatic product-to-mirror synchronization; further changes require review.
+
 ## Accepted Maintenance Prepared Locally - 2026-10-04
 
 Visible text and reviewer notes each list every distinct matched disclosure/provenance term with bounded first-occurrence literal context. Excerpts are limited to 80 UTF-16 code units including ellipses. Matches include embedded and negated terms; excerpts do not verify intent, signatures, provenance or authorship. Counts, tiers, grouping and freshness guards are unchanged.

@@ -14,6 +14,7 @@ const statusOutput = document.querySelector("#status-output");
 const analyzeButton = document.querySelector("#analyze-button");
 const sampleButton = document.querySelector("#sample-button");
 const copyButton = document.querySelector("#copy-button");
+const exportButton = document.querySelector("#export-button");
 const resetButton = document.querySelector("#reset-button");
 let reportInputs = null;
 
@@ -23,6 +24,7 @@ function reportIsCurrent() {
 
 function invalidateReport() {
   reportInputs = null;
+  exportButton.disabled = true;
   reportOutput.textContent = "Inputs changed. Choose Analyze text to generate a current report.";
   signalLevel.textContent = "Not reviewed";
   renderList(signalList, ["Inputs changed; previous signals cleared. Analyze text again."]);
@@ -98,6 +100,7 @@ function getPatternNotes(text) {
 
 function inspectText() {
   reportInputs = null;
+  exportButton.disabled = true;
   const rawText = textInput.value.trim();
   const rawNotes = sourceNotes.value.trim();
 
@@ -196,6 +199,7 @@ function inspectText() {
 
   statusOutput.textContent = "Report ready";
   reportInputs = { text: textInput.value, notes: sourceNotes.value };
+  exportButton.disabled = false;
 }
 
 function loadSample() {
@@ -251,8 +255,38 @@ async function copyReport() {
   }
 }
 
+function exportReport() {
+  if (!reportIsCurrent() || !reportOutput.textContent.trim() || reportOutput.textContent === "No report yet.") {
+    if (reportInputs) invalidateReport();
+    exportButton.disabled = true;
+    statusOutput.textContent = "Analyze current text and notes before export";
+    return;
+  }
+
+  let url;
+  let link;
+  try {
+    const blob = new Blob([reportOutput.textContent], { type: "text/plain;charset=utf-8" });
+    url = URL.createObjectURL(blob);
+    link = document.createElement("a");
+    if (typeof link.download !== "string") throw new Error("Download unavailable");
+    link.href = url;
+    link.download = "ai-watermark-reader-lite-report.txt";
+    link.hidden = true;
+    document.body.appendChild(link);
+    link.click();
+    statusOutput.textContent = "Report download requested";
+  } catch {
+    statusOutput.textContent = "Export unavailable; copy report instead";
+  } finally {
+    if (link) link.remove();
+    if (url) window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+}
+
 function resetTool() {
   reportInputs = null;
+  exportButton.disabled = true;
   textInput.value = "";
   sourceNotes.value = "";
   signalLevel.textContent = "Not reviewed";
@@ -267,6 +301,7 @@ function resetTool() {
 analyzeButton.addEventListener("click", inspectText);
 sampleButton.addEventListener("click", loadSample);
 copyButton.addEventListener("click", copyReport);
+exportButton.addEventListener("click", exportReport);
 resetButton.addEventListener("click", resetTool);
 [textInput, sourceNotes].forEach((field) => field.addEventListener("input", () => {
   if (reportInputs) invalidateReport();

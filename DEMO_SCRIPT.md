@@ -1,5 +1,11 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Post-Pages Accepted Product Updates - 2026-10-04
+
+Analyze text or the sample, Export report (.txt), open the file and compare grouped signals, reviewer notes, limits and next steps. Edit text/notes: export must wait for reanalysis. Regenerate, export, copy and reset.
+
+This is a current walkthrough, not evidence that the existing demo video was re-recorded.
+
 ## Accepted Maintenance Prepared Locally - 2026-10-04
 
 Compare pasted-text-only and reviewer-notes-only input containing several disclosure/provenance terms, then both. Inspect attributed literal excerpts on screen and in the copied report; edit input, regenerate and reset. Explain that matching does not interpret negation or establish authorship.
