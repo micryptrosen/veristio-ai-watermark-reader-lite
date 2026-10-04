@@ -1,5 +1,13 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Review label - Current Public-Safe Update
+
+Optional user-supplied review labels identify the current screen, copied report and .txt export. Labels do not affect signals or verify provenance. Edit a label and regenerate before copying/exporting; confirmed sample and Reset clear it.
+
+App: https://micryptrosen.github.io/veristio-ai-watermark-reader-lite/
+Use the live app or open index.html locally. Existing video walkthroughs predate this update. Earlier roadmap/demo checkpoints below remain historical. Static local-only behavior; no accounts, backend, persistence or external services added.
+
+
 ## Actionable Review Aids - 2026-10-04
 
 Source-aware human-review questions distinguish pasted-text findings from reviewer-reported hints. Matching, counts, tiers, literal excerpts, cautious limitations and current report copy/export guards remain unchanged.

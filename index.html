@@ -24,6 +24,11 @@
           </div>
 
           <label>
+            <span>Review label (optional)</span>
+            <input id="review-label" type="text" maxlength="120" placeholder="Item or draft name">
+          </label>
+
+          <label>
             <span>Text for inspection</span>
             <textarea id="text-input" rows="10" placeholder="Paste text here. Avoid private or sensitive content."></textarea>
           </label>
@@ -56,6 +61,7 @@
             <span>Review signal level</span>
             <strong id="signal-level">Not reviewed</strong>
           </div>
+          <p id="review-label-output" aria-live="polite">No generated review label.</p>
 
           <div class="report-block">
             <h3>Where each signal came from</h3>

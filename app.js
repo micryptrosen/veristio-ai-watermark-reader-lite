@@ -4,6 +4,8 @@ const sampleNotes = `Visible disclosure appears in the first sentence. Reviewer 
 
 const textInput = document.querySelector("#text-input");
 const sourceNotes = document.querySelector("#source-notes");
+const reviewLabel = document.querySelector("#review-label");
+const reviewLabelOutput = document.querySelector("#review-label-output");
 const signalList = document.querySelector("#signal-list");
 const reviewerList = document.querySelector("#reviewer-list");
 const limitationsList = document.querySelector("#limitations-list");
@@ -20,10 +22,11 @@ let reportInputs = null;
 let copyOperation = 0;
 
 function reportIsCurrent() {
-  return reportInputs && reportInputs.text === textInput.value && reportInputs.notes === sourceNotes.value;
+  return reportInputs && reportInputs.text === textInput.value && reportInputs.notes === sourceNotes.value && reportInputs.label === reviewLabel.value;
 }
 
 function invalidateReport() {
+  reviewLabelOutput.textContent = "Review label not generated; analyze current inputs.";
   copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
@@ -101,11 +104,13 @@ function getPatternNotes(text) {
 }
 
 function inspectText() {
+  reviewLabelOutput.textContent = "No generated review label.";
   copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
   const rawText = textInput.value.trim();
   const rawNotes = sourceNotes.value.trim();
+  const label = reviewLabel.value.replace(/[\r\n\t]+/g, " ").trim().slice(0, 120);
 
   if (!rawText && !rawNotes) {
     const emptySignals = ["No text or notes supplied yet. Paste content or load the sample to begin a Lite review."];
@@ -191,9 +196,11 @@ function inspectText() {
   renderList(reviewerList, reviewerSignals);
   renderList(limitationsList, limitations);
   renderList(stepsList, steps);
+  reviewLabelOutput.textContent = label ? `User-supplied review label: ${label}` : "No review label supplied.";
 
   reportOutput.textContent = [
     "AI Watermark Reader Lite report",
+    ...(label ? [`User-supplied review label: ${label}`] : []),
     "",
     "Where each signal came from:",
     "Visible text signals:",
@@ -210,14 +217,14 @@ function inspectText() {
   ].join("\n");
 
   statusOutput.textContent = "Report ready";
-  reportInputs = { text: textInput.value, notes: sourceNotes.value };
+  reportInputs = { text: textInput.value, notes: sourceNotes.value, label: reviewLabel.value };
   exportButton.disabled = false;
 }
 
 // Sample replacement protection: compare raw text, including deletions and whitespace.
 let sampleLoadBaseline;
 function sampleProtectedState(target = false) {
-  return JSON.stringify({ text: target ? sampleText : textInput.value, notes: target ? sampleNotes : sourceNotes.value });
+  return JSON.stringify({ text: target ? sampleText : textInput.value, notes: target ? sampleNotes : sourceNotes.value, label: target ? "" : reviewLabel.value });
 }
 function sampleReplacementAllowed() {
   const current = sampleProtectedState();
@@ -232,6 +239,7 @@ function sampleReplacementAllowed() {
 
 function loadSample() {
   if (!sampleReplacementAllowed()) return;
+  reviewLabel.value = "";
   textInput.value = sampleText;
   sourceNotes.value = sampleNotes;
   inspectText();
@@ -317,6 +325,8 @@ function exportReport() {
 }
 
 function resetTool() {
+  reviewLabel.value = "";
+  reviewLabelOutput.textContent = "No generated review label.";
   copyOperation += 1;
   reportInputs = null;
   exportButton.disabled = true;
@@ -338,6 +348,6 @@ sampleButton.addEventListener("click", loadSample);
 copyButton.addEventListener("click", copyReport);
 exportButton.addEventListener("click", exportReport);
 resetButton.addEventListener("click", resetTool);
-[textInput, sourceNotes].forEach((field) => field.addEventListener("input", () => {
+[textInput, sourceNotes, reviewLabel].forEach((field) => field.addEventListener("input", () => {
   if (reportInputs) invalidateReport();
 }));
