@@ -1,5 +1,12 @@
 # Demo Script - AI Watermark Reader Lite
 
+## Sample Replacement Protection - 2026-10-04
+
+Load sample asks before replacing work changed since the initial state, last successful sample load or Reset. Cancel keeps current inputs and generated output; confirm loads the sample. Unchanged sample values load directly. Reset still clears work immediately; no autosave is added.
+Pasted text and reviewer notes are protected separately. Literal excerpts, cautious limitations, current report copy and export remain unchanged.
+Walkthrough: load sample, edit, cancel and inspect preserved work, then confirm and Reset. Existing video was not re-recorded.
+Earlier snapshot notes below are historical checkpoints.
+
 ## Current Public-safe Snapshot - 2026-10-04
 
 Generate a report, try repeated Copy, then Copy followed by Export report (.txt). Edit text or notes, reanalyze, export and reset. Explain that signals are not verified provenance or authorship.

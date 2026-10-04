@@ -1,5 +1,12 @@
 # Roadmap
 
+## Sample Replacement Protection - 2026-10-04
+
+Load sample asks before replacing work changed since the initial state, last successful sample load or Reset. Cancel keeps current inputs and generated output; confirm loads the sample. Unchanged sample values load directly. Reset still clears work immediately; no autosave is added.
+Pasted text and reviewer notes are protected separately. Literal excerpts, cautious limitations, current report copy and export remain unchanged.
+Implemented and owner-accepted. Static local-only operation and MIT remain unchanged; physical-phone review deferred.
+Earlier snapshot notes below are historical checkpoints.
+
 ## Current Public-safe Snapshot - 2026-10-04
 
 Repeated copy attempts use only the latest operation's status/fallback completion. Export report (.txt) supersedes pending copy completion. Input edits, reanalysis and reset keep existing current-report safeguards. Report grouping, attributed literal excerpts, matching and limitations are unchanged.

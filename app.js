@@ -205,11 +205,29 @@ function inspectText() {
   exportButton.disabled = false;
 }
 
+// Sample replacement protection: compare raw text, including deletions and whitespace.
+let sampleLoadBaseline;
+function sampleProtectedState(target = false) {
+  return JSON.stringify({ text: target ? sampleText : textInput.value, notes: target ? sampleNotes : sourceNotes.value });
+}
+function sampleReplacementAllowed() {
+  const current = sampleProtectedState();
+  if (current === sampleLoadBaseline || current === sampleProtectedState(true)) return true;
+  try {
+    return typeof window.confirm === "function" && window.confirm("Replace your current text and reviewer notes with the sample? Cancel to keep your work.") === true;
+  } catch {
+    return false;
+  }
+}
+// End sample replacement protection.
+
 function loadSample() {
+  if (!sampleReplacementAllowed()) return;
   textInput.value = sampleText;
   sourceNotes.value = sampleNotes;
   inspectText();
   statusOutput.textContent = "Sample loaded";
+  sampleLoadBaseline = sampleProtectedState();
 }
 
 function selectReportText() {
@@ -302,8 +320,10 @@ function resetTool() {
   renderList(stepsList, ["Review visible disclosures and source context before drawing conclusions."]);
   reportOutput.textContent = "No report yet.";
   statusOutput.textContent = "Local only";
+  sampleLoadBaseline = sampleProtectedState();
 }
 
+sampleLoadBaseline = sampleProtectedState();
 analyzeButton.addEventListener("click", inspectText);
 sampleButton.addEventListener("click", loadSample);
 copyButton.addEventListener("click", copyReport);
