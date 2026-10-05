@@ -1,5 +1,13 @@
 # AI Watermark Reader Lite
 
+## Saved Handoff Clarity - Current Public-Safe Update
+
+Current generated review labels are sanitized into report download filenames, with the existing generic filename for blank/unusable labels. Report text, cautious claims, attribution, excerpts, freshness and copy behavior are unchanged.
+
+App: https://micryptrosen.github.io/veristio-ai-watermark-reader-lite/
+Use the live app or open index.html locally. Existing videos predate this update; earlier dated preparation/roadmap notes below are historical. Static local-only architecture; no new accounts, network dependencies or persistence.
+
+
 ## Review label - Current Public-Safe Update
 
 Optional user-supplied review labels identify the current screen, copied report and .txt export. Labels do not affect signals or verify provenance. Edit a label and regenerate before copying/exporting; confirmed sample and Reset clear it.

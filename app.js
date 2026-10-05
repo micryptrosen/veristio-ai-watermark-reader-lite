@@ -294,6 +294,11 @@ async function copyReport() {
   }
 }
 
+function reportFilename(label) {
+  const slug = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 60).replace(/^-+|-+$/g, "");
+  return slug ? `ai-watermark-reader-lite-report-${slug}.txt` : "ai-watermark-reader-lite-report.txt";
+}
+
 function exportReport() {
   copyOperation += 1;
   if (!reportIsCurrent() || !reportOutput.textContent.trim() || reportOutput.textContent === "No report yet.") {
@@ -311,7 +316,7 @@ function exportReport() {
     link = document.createElement("a");
     if (typeof link.download !== "string") throw new Error("Download unavailable");
     link.href = url;
-    link.download = "ai-watermark-reader-lite-report.txt";
+    link.download = reportFilename(reportInputs.label);
     link.hidden = true;
     document.body.appendChild(link);
     link.click();
